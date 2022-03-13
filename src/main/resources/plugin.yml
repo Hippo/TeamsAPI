@@ -1,0 +1,6 @@
+name: TeamsAPI
+main: rip.hippo.teamsapi.TeamsAPIPlugin
+version: 1.0.0
+author: Hippo
+depend:
+  - UUIDService

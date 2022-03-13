@@ -21,35 +21,35 @@ public final class TeamsAPI {
     this.teamsConfig = new TeamsConfig(javaPlugin, configName);
   }
 
-  public int getTeam(Player player) {
+  public Integer getTeam(Player player) {
     return teamsConfig.getTeamByUUID(player.getUniqueId());
   }
 
-  public int getTeam(String playerName) {
+  public Integer getTeam(String playerName) {
     return teamsConfig.getTeamByUUID(UUIDService.getUUID(playerName));
   }
 
-  public int getTeamByUUID(UUID uuid) {
+  public Integer getTeamByUUID(UUID uuid) {
     return teamsConfig.getTeamByUUID(uuid.toString().replace("-", ""));
   }
 
-  public int getTeamByUUID(String uuid) {
+  public Integer getTeamByUUID(String uuid) {
     return teamsConfig.getTeamByUUID(uuid);
   }
 
-  public void setTeam(Player player, int team) {
+  public void setTeam(Player player, Integer team) {
     teamsConfig.setTeamByUUID(player.getUniqueId(), team);
   }
 
-  public void setTeam(String playerName, int team) {
+  public void setTeam(String playerName, Integer team) {
      teamsConfig.setTeamByUUID(UUIDService.getUUID(playerName), team);
   }
 
-  public void setTeamByUUID(UUID uuid, int team) {
+  public void setTeamByUUID(UUID uuid, Integer team) {
     teamsConfig.setTeamByUUID(uuid.toString().replace("-", ""), team);
   }
 
-  public void setTeamByUUID(String uuid, int team) {
+  public void setTeamByUUID(String uuid, Integer team) {
     teamsConfig.setTeamByUUID(uuid, team);
   }
 }

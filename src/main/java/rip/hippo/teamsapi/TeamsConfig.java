@@ -33,14 +33,20 @@ final class TeamsConfig {
 
     this.fileConfiguration = new YamlConfiguration();
     this.file = new File(directory, configName);
+    this.teamMap = new HashMap<>();
 
     try {
+      if (!file.exists()) {
+        if (!file.createNewFile()) {
+          throw new IOException("Failed to create teams config!");
+        }
+        return;
+      }
       fileConfiguration.load(file);
     } catch (IOException | InvalidConfigurationException e) {
       throw new RuntimeException(e);
     }
 
-    this.teamMap = new HashMap<>();
 
     for (String key : fileConfiguration.getKeys(false)) {
       teamMap.put(key, fileConfiguration.getInt(key));
@@ -51,35 +57,35 @@ final class TeamsConfig {
     this(javaPlugin, "teams.yml");
   }
 
-  int getTeam(Player player) {
+  Integer getTeam(Player player) {
     return getTeamByUUID(player.getUniqueId());
   }
 
-  int getTeam(String playerName) {
+  Integer getTeam(String playerName) {
     return getTeamByUUID(UUIDService.getUUID(playerName));
   }
 
-  int getTeamByUUID(UUID uuid) {
+  Integer getTeamByUUID(UUID uuid) {
     return getTeamByUUID(uuid.toString().replace("-", ""));
   }
 
-  int getTeamByUUID(String uuid) {
+  Integer getTeamByUUID(String uuid) {
     return teamMap.get(uuid);
   }
 
-  void setTeam(Player player, int team) {
+  void setTeam(Player player, Integer team) {
     setTeamByUUID(player.getUniqueId(), team);
   }
 
-  void setTeam(String playerName, int team) {
+  void setTeam(String playerName, Integer team) {
     setTeamByUUID(UUIDService.getUUID(playerName), team);
   }
 
-  void setTeamByUUID(UUID uuid, int team) {
+  void setTeamByUUID(UUID uuid, Integer team) {
     setTeamByUUID(uuid.toString().replace("-", ""), team);
   }
 
-  void setTeamByUUID(String uuid, int team) {
+  void setTeamByUUID(String uuid, Integer team) {
     teamMap.put(uuid, team);
     fileConfiguration.set(uuid, team);
     save();
